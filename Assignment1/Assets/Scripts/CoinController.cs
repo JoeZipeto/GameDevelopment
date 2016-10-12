@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GrassController : MonoBehaviour {
+public class CoinController : MonoBehaviour {
+	//Coin Controller
 
 	[SerializeField]
 	private float speed = 0;
@@ -9,27 +10,32 @@ public class GrassController : MonoBehaviour {
 	private Transform _transform;
 	private Vector2 _currentPosition;
 
+	private float miny = -3f;
+	private float maxy = 3f;
+
 
 	// Use this for initialization
 	void Start () {
-		_transform = gameObject.GetComponent<Transform>();
+		_transform = gameObject.transform;
 		_currentPosition = _transform.position;
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 		_currentPosition = transform.position;
+		_currentPosition -= new Vector2 (speed, 0);
 
-		_currentPosition -= new Vector2 (speed,0);
+		if (_currentPosition.x <= -13.0f) {
+			Reset ();
+		}
 		_transform.position = _currentPosition;
-
-		if (_currentPosition.x < -10.0f) {	Reset ();}
 	}
 
-	private void Reset(){
-		
-		_currentPosition = new Vector2 (10.0f, 0);
+	public void  Reset(){
+
+		float ypos = Random.Range (miny, maxy);
+		_currentPosition = new Vector2 (20.0f, ypos);
 		_transform.position = _currentPosition;
+
 	}
 }
-
