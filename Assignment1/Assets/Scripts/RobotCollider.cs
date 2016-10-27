@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/*******************************************************************************************
+*Source file name: Robot Colider
+*Author’s name: Joe Zipeto
+*Last Modified by: Joe Zipeto
+*Date last Modified: October 27, 2016
+*Program description: This controls all the collisions for the game.
+*Revision History: 1.3 
+**********************************************************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 public class RobotCollider : MonoBehaviour
@@ -17,16 +26,18 @@ public class RobotCollider : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
+		//Handles collision based on what is detected, Also play animation for explsosion and sounds based on the collision detected
+		AudioSource asrc = GetComponent<AudioSource> ();
 		TreeController tree = other.gameObject.GetComponent<TreeController> ();
 		if (other.gameObject.tag == "Tree") {
-			Player.Instance.Health -= 10;           
+			Player.Instance.Health -= 20;           
 
 			if (tree != null) {
 				//Play explosion animation and reset the gameobject and play sound
 				GameObject gm = Instantiate (explosion);
 				gm.transform.position = tree.transform.position;
 				tree.Reset ();
-				PlayAudio (treeclip);
+				PlayAudio (treeclip, asrc);
 			} 
 		}
 
@@ -37,7 +48,7 @@ public class RobotCollider : MonoBehaviour
 			//Collect the coin and play sound
 			CoinController coin = other.gameObject.GetComponent<CoinController> ();
 			coin.Reset ();
-			PlayAudio (coinclip);
+			PlayAudio (coinclip, asrc);
 
 		}
         // Add points for silver
@@ -47,7 +58,7 @@ public class RobotCollider : MonoBehaviour
 			//Collect the coin and play sound
 			CoinController coin = other.gameObject.GetComponent<CoinController> ();
 			coin.Reset ();
-			PlayAudio (coinclip);
+			PlayAudio (coinclip,asrc);
 
 		}
         // Add points for Bronze
@@ -57,17 +68,17 @@ public class RobotCollider : MonoBehaviour
 			//Collect the coin and play sound
 			CoinController coin = other.gameObject.GetComponent<CoinController> ();
 			coin.Reset ();
-			PlayAudio (coinclip);
+			PlayAudio (coinclip,asrc);
+					
 		}
 	}
 
-	private void PlayAudio (AudioClip audio)
+	private void PlayAudio (AudioClip audio, AudioSource asrc)
 	{
-		//Play coin Audio
-		AudioSource asrc = GetComponent<AudioSource> ();
+		//Play Audio based on parameters
 		if (asrc != null) {
-			asrc.PlayOneShot (audio);
+			asrc.clip = audio;
+			asrc.Play ();
 		}
-
 	}
 }

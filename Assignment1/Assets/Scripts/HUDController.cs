@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/*******************************************************************************************
+*Source file name: HUDController
+*Author’s name: Joe ZIpeto
+*Last Modified by: Joe Zipeto
+*Date last Modified: October 26, 2016
+*Program description: This is the Controller for the UI The labels get update based on what the player does
+*Revision History: 1.3 
+**********************************************************************************************/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -16,8 +25,6 @@ public class HUDController : MonoBehaviour {
 	[SerializeField]
 	GameObject player = null;
 
-	[SerializeField]
-	Text highscore = null;
 
 	// Use this for initialization
 	void Start () {
@@ -25,15 +32,10 @@ public class HUDController : MonoBehaviour {
 		health.text = "Health: 100";
 		Player.Instance.hud = this;
 		RestartGame ();
-
 	}
-
-
-
+		
 	public void UpdatePoints(){
-
 		points.text = "Points: " + Player.Instance.Points;
-
 	}
 
 	public void UpdateHealth(){
@@ -45,20 +47,18 @@ public class HUDController : MonoBehaviour {
 		points.gameObject.SetActive (false);
 		health.gameObject.SetActive (false);
 
-
 		//deavtivate player
 		player.gameObject.SetActive (false);
 
 		//Display games over label
-		gameoverLabel.gameObject.SetActive(true);
-		highscore.gameObject.SetActive (true);
+		gameoverLabel.gameObject.SetActive (true);
 
 		//display restart button
-		restartBtn.gameObject.SetActive(true);
+		restartBtn.gameObject.SetActive (true);
 	}
 
 	public void RestartGame(){
-
+		//Debug.Log ("This works");
 		//hide labels with health and points
 		points.gameObject.SetActive (true);
 		health.gameObject.SetActive (true);
@@ -66,15 +66,15 @@ public class HUDController : MonoBehaviour {
 		Player.Instance.Points = 0;
 		Player.Instance.Health = 100;
 
-		//deavtivate player
+		//activate player
 		player.gameObject.SetActive (true);
 
-		//Display games over label
+		//hide games over label
 		gameoverLabel.gameObject.SetActive (false);
-		highscore.gameObject.SetActive (false);
 
-		//display restart button
+		//hide restart button
 		restartBtn.gameObject.SetActive(false);
+
 	}
 }
 

@@ -1,12 +1,21 @@
-﻿using UnityEngine;
+﻿/*******************************************************************************************
+*Source file name: Player
+*Author’s name: Joe Zipeto
+*Last Modified by: Joe Zipeto
+*Date last Modified: October 24, 2016
+*Program description: Singleton class to hold all the player information
+*Revision History: 1.3 
+**********************************************************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 public class Player
 {
     //SingleTon Class to keep scores and health variables for the game
-    private int _points = 0;
+    //DataMembers
+	private int _points = 0;
     private int _health = 100;
-	private const string key = "HIGH_SCORE";
 	public HUDController hud;
     private static Player _instance = null;
 
@@ -29,17 +38,17 @@ public class Player
 		}
 
         //set points for coin collection
-        set
-        {
-            _points = value;
+        set {
+			_points = value;
+				//trigger UI update
+				hud.UpdatePoints ();
 
-            //trigger UI update
-            hud.UpdatePoints();
-        }
+		}
     }
 
     public int Health
     {
+		//getter and setters for health
         get { return _health; }
 
         //Update health on tree collision
@@ -50,27 +59,8 @@ public class Player
             //trigger UI update
            hud.UpdateHealth();
 			if (_health <= 0) {
-			//	hud.GameOver ();
+				hud.GameOver ();
 			}
         }
     }
-
-	private int _highScore = 0;
-
-
-	public int HighScore{
-	// Keep Track of Highscores using PlayerPrefs
-		get{ 
-			return _highScore;
-		}
-
-		set{ 
-			if (value > _highScore) {
-				_highScore = value;
-				PlayerPrefs.SetInt (key, _highScore);
-			}
-		}
-	}
-
-
 }

@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿/*******************************************************************************************
+*Source file name: RobotController
+*Author’s name: Joe ZIpeto
+*Last Modified by: Joe Zipeto
+*Date last Modified: October 21, 2016
+*Program description: This is the Controller for the robot
+*Revision History: 1.3 
+**********************************************************************************************/
+
+
+using UnityEngine;
 using System.Collections;
 
 public class RobotController : MonoBehaviour
@@ -21,7 +31,7 @@ public class RobotController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+		//Controls the movement of the robot based on what keys the users presses
         float input = Input.GetAxis("Vertical");
 
         if (input > 0)
@@ -37,7 +47,7 @@ public class RobotController : MonoBehaviour
 
     private void checkBounds()
     {
-
+		//Does not let the robot go out of bounds of the screen
         if (_currentPosition.y < -3.5f)
         {
             _currentPosition.y = -3.5f;
